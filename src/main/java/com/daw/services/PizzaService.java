@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.daw.persistence.crud.PizzaCrudRepository;
 import com.daw.persistence.entities.Pizza;
+import com.daw.persistence.repositories.PizzaCrudRepository;
 
 @Service
 public class PizzaService {

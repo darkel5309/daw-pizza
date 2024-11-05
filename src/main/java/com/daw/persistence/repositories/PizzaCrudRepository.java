@@ -1,4 +1,4 @@
-package com.daw.persistence.crud;
+package com.daw.persistence.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 

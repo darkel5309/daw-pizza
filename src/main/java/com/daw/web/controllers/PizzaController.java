@@ -45,7 +45,7 @@ public class PizzaController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("/{idPizza}")
 	public ResponseEntity<Pizza> delete(@PathVariable int idPizza){
 		if (this.pizzaService.delete(idPizza)) {
 			return ResponseEntity.ok().build();
@@ -58,8 +58,14 @@ public class PizzaController {
 		return new ResponseEntity<Pizza>(this.pizzaService.save(pizza), HttpStatus.CREATED);
 	}
 	
-	@PutMapping
-	public ResponseEntity<Pizza> update(@PathVariable (idPizza) @RequestBody Pizza pizza){
+	@PutMapping("/{idPizza}")
+	public ResponseEntity<Pizza> update(@PathVariable int idPizza, @RequestBody Pizza pizza){
+		/*if(idPizza != pizza.getId()) {
+			return ResponseEntity.badRequest().build();
+		}
+		if (!this.pizzaService.exists()) {
+			return ResponseEntity.notFound();
+		}*/		
 		return new ResponseEntity<Pizza>(this.pizzaService.save(pizza), HttpStatus.CREATED);
 	}
 	
