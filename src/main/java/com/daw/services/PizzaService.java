@@ -47,4 +47,8 @@ public class PizzaService {
 		return result;
 	}
 	
+	public boolean exists(int idPizza) {
+		return this.pizzaCrudRepository.existsById(idPizza);
+	}
+	
 }
