@@ -6,41 +6,41 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.daw.persistence.entities.Pizza;
-import com.daw.persistence.repositories.PizzaCrudRepository;
+import com.daw.persistence.repositories.PizzaRepository;
 
 @Service
 public class PizzaService {
 	
-	private final PizzaCrudRepository pizzaCrudRepository;
+	private final PizzaRepository pizzaRepository;
 	
-	public PizzaService(PizzaCrudRepository pizzaCrudRepository) {
+	public PizzaService(PizzaRepository pizzaCrudRepository) {
 		super();
-		this.pizzaCrudRepository = pizzaCrudRepository;
+		this.pizzaRepository = pizzaCrudRepository;
 	}
 
 	public List<Pizza> getAll(){
-		return (List<Pizza>)this.pizzaCrudRepository.findAll();
+		return this.pizzaRepository.findAll();
 	}
 	
 	public Optional<Pizza> getPizza(int idPizza){
-		return this.pizzaCrudRepository.findById(idPizza);
+		return this.pizzaRepository.findById(idPizza);
 	}
 	
 	public Pizza create(Pizza pizza) {
 		pizza.setDisponible(true);
 		
-		return this.pizzaCrudRepository.save(pizza);
+		return this.pizzaRepository.save(pizza);
 	}
 	
 	public Pizza save(Pizza pizza) {
-		return this.pizzaCrudRepository.save(pizza);
+		return this.pizzaRepository.save(pizza);
 	}
 	
 	public boolean delete(int idPizza) {
 		boolean result = false;
 		
-		if (this.pizzaCrudRepository.findById(idPizza).isPresent()) {
-			this.pizzaCrudRepository.deleteById(idPizza);
+		if (this.pizzaRepository.findById(idPizza).isPresent()) {
+			this.pizzaRepository.deleteById(idPizza);
 			
 			result = true;
 		} 
@@ -48,7 +48,7 @@ public class PizzaService {
 	}
 	
 	public boolean exists(int idPizza) {
-		return this.pizzaCrudRepository.existsById(idPizza);
+		return this.pizzaRepository.existsById(idPizza);
 	}
 	
 }
