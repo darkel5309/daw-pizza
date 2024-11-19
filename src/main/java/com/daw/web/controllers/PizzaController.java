@@ -22,6 +22,7 @@ import com.daw.services.PizzaService;
 @RequestMapping("/pizzas")
 public class PizzaController {
 
+	@Autowired
 	private final PizzaService pizzaService;
 	
 	public PizzaController(PizzaService pizzaService) {
@@ -29,6 +30,7 @@ public class PizzaController {
 		this.pizzaService = pizzaService;
 	}
 
+	@GetMapping
 	public ResponseEntity <List<Pizza>> list(){
 		return ResponseEntity.ok(this.pizzaService.getAll());
 	}
@@ -68,4 +70,9 @@ public class PizzaController {
 		}
 		return ResponseEntity.notFound().build();
 	}
+	
+	/* @GetMapping("/preciosAsc")
+	public ResponseEntity <List<Pizza>> listPizzaOrderByPrecioAsc(){
+		return ResponseEntity.ok(this.pizzaService.getPizzaOrderByPrecioAsc());
+	} */
 }

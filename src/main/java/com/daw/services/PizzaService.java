@@ -51,4 +51,9 @@ public class PizzaService {
 		return this.pizzaRepository.existsById(idPizza);
 	}
 	
+	
+	/* public List<Pizza> getPizzaOrderByPrecioAsc(){
+		return this.pizzaRepository.findPizzaOrderByPrecioAsc();
+	} */
+	
 }
