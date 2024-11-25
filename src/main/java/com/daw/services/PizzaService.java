@@ -3,6 +3,7 @@ package com.daw.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daw.persistence.entities.Pizza;
@@ -11,6 +12,7 @@ import com.daw.persistence.repositories.PizzaRepository;
 @Service
 public class PizzaService {
 	
+	@Autowired
 	private final PizzaRepository pizzaRepository;
 	
 	public PizzaService(PizzaRepository pizzaCrudRepository) {
@@ -52,8 +54,19 @@ public class PizzaService {
 	}
 	
 	
-	/* public List<Pizza> getPizzaOrderByPrecioAsc(){
-		return this.pizzaRepository.findPizzaOrderByPrecioAsc();
-	} */
+	public List<Pizza> getPizzasOrderByPrecioAsc(){
+		return this.pizzaRepository.findByOrderByPrecioAsc();
+	}
 	
+	public List<Pizza> getPizzaByNombreStartingWith(String nombre){
+		return this.pizzaRepository.findByNombreStartingWith(nombre);
+	}
+	
+	public List<Pizza> getPizzaByIngredientesContaining(String descripcion){
+		return this.pizzaRepository.findByDescripcionContaining(descripcion);
+	}
+	
+	/*public List<Pizza> getPizzaByIngredientesNotIn(String descripcion){
+		return this.pizzaRepository.findByDescripcionNotIn(descripcion);
+	}*/
 }

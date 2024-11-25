@@ -8,6 +8,8 @@ import com.daw.persistence.entities.Pizza;
 
 public interface PizzaRepository extends ListCrudRepository<Pizza, Integer> {
 	
-	// List<Pizza> findPizzaOrderByPrecioAsc();
-
+	List<Pizza> findByOrderByPrecioAsc();
+	List<Pizza> findByNombreStartingWith(String nombre);
+	List<Pizza> findByDescripcionContaining(String descripcion);
+	// List<Pizza> findByDescripcionNotIn(String descripcion);
 }

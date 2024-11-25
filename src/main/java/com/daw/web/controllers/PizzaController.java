@@ -71,8 +71,18 @@ public class PizzaController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	/* @GetMapping("/preciosAsc")
+	@GetMapping("/precioAsc")
 	public ResponseEntity <List<Pizza>> listPizzaOrderByPrecioAsc(){
-		return ResponseEntity.ok(this.pizzaService.getPizzaOrderByPrecioAsc());
-	} */
+		return ResponseEntity.ok(this.pizzaService.getPizzasOrderByPrecioAsc());
+	}
+	
+	@GetMapping("/nombre")
+	public ResponseEntity<List<Pizza>> listPizzaByNameStartingWith(String nombre){
+		return ResponseEntity.ok(this.pizzaService.getPizzaByNombreStartingWith(nombre));
+	}
+	
+	/*@GetMapping("/ingredientes")
+	public ResponseEntity <List<Pizza>> ListPizzaByIngredientesNotIn(String descripcion){
+		return ResponseEntity.ok(this.pizzaService.getPizzaByIngredientesNotIn(descripcion));
+	}*/
 }
