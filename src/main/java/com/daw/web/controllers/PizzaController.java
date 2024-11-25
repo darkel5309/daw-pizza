@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.daw.persistence.entities.Pizza;
@@ -71,18 +72,23 @@ public class PizzaController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("/precioAsc")
-	public ResponseEntity <List<Pizza>> listPizzaOrderByPrecioAsc(){
-		return ResponseEntity.ok(this.pizzaService.getPizzasOrderByPrecioAsc());
+	@GetMapping("/carta")
+	public ResponseEntity<List<Pizza>> carta() {
+		return ResponseEntity.ok(this.pizzaService.getCarta());
 	}
 	
 	@GetMapping("/nombre")
-	public ResponseEntity<List<Pizza>> listPizzaByNameStartingWith(String nombre){
-		return ResponseEntity.ok(this.pizzaService.getPizzaByNombreStartingWith(nombre));
+	public ResponseEntity<List<Pizza>> findByNombre(@RequestParam String nombre) {
+		return ResponseEntity.ok(this.pizzaService.getByNombre(nombre));
 	}
 	
-	/*@GetMapping("/ingredientes")
-	public ResponseEntity <List<Pizza>> ListPizzaByIngredientesNotIn(String descripcion){
-		return ResponseEntity.ok(this.pizzaService.getPizzaByIngredientesNotIn(descripcion));
-	}*/
+	@GetMapping("/conIngrediente")
+	public ResponseEntity<List<Pizza>> findIngrediente(@RequestParam String ingrediente) {
+		return ResponseEntity.ok(this.pizzaService.getIngrediente(ingrediente));
+	}
+
+	@GetMapping("/sinIngrediente")
+	public ResponseEntity<List<Pizza>> findSinIngrediente(@RequestParam String ingrediente) {
+		return ResponseEntity.ok(this.pizzaService.getSinIngrediente(ingrediente));
+	}
 }

@@ -53,20 +53,19 @@ public class PizzaService {
 		return this.pizzaRepository.existsById(idPizza);
 	}
 	
-	
-	public List<Pizza> getPizzasOrderByPrecioAsc(){
-		return this.pizzaRepository.findByOrderByPrecioAsc();
+	public List<Pizza> getCarta() {
+		return this.pizzaRepository.findByDisponibleTrueOrderByPrecioAsc();
 	}
 	
-	public List<Pizza> getPizzaByNombreStartingWith(String nombre){
-		return this.pizzaRepository.findByNombreStartingWith(nombre);
+	public List<Pizza> getByNombre(String nombre) {
+		return this.pizzaRepository.findByDisponibleTrueAndNombreStartingWith(nombre);
 	}
 	
-	public List<Pizza> getPizzaByIngredientesContaining(String descripcion){
-		return this.pizzaRepository.findByDescripcionContaining(descripcion);
+	public List<Pizza> getIngrediente(String ingrediente) {
+		return this.pizzaRepository.findByDescripcionContaining(ingrediente);
 	}
 	
-	/*public List<Pizza> getPizzaByIngredientesNotIn(String descripcion){
-		return this.pizzaRepository.findByDescripcionNotIn(descripcion);
-	}*/
+	public List<Pizza> getSinIngrediente(String ingrediente) {
+		return this.pizzaRepository.findByDescripcionNotContaining(ingrediente);
+	}
 }
