@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.daw.persistence.entities.Cliente;
@@ -65,6 +66,19 @@ public class ClienteController {
 	public ResponseEntity<Cliente> delete(@PathVariable int idCliente) {
 		if (this.clienteService.delete(idCliente)) {
 			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.notFound().build();
+	}
+
+	@GetMapping("/telefono")
+	public ResponseEntity<List<Cliente>> findByTelefono(@RequestParam String telefono) {
+		return ResponseEntity.ok(this.clienteService.getByTelefono(telefono));
+	}
+
+	@PutMapping("/{idCliente}/direccion")
+	public ResponseEntity<Cliente> updateDireccion(@PathVariable int idCliente, @RequestParam String direccion) {
+		if (this.clienteService.exists(idCliente)) {
+			return ResponseEntity.ok(this.clienteService.modificarDireccion(idCliente, direccion));
 		}
 		return ResponseEntity.notFound().build();
 	}

@@ -49,4 +49,15 @@ public class ClienteService {
 		return this.clienteRepository.existsById(idCliente);
 	}
 
+	public List<Cliente> getByTelefono(String telefono) {
+		return this.clienteRepository.findByTelefonoContaining(telefono);
+	}
+
+	public Cliente modificarDireccion(int idCliente, String nuevaDireccion) {
+		Cliente cliente = this.clienteRepository.findById(idCliente).get();
+
+		cliente.setDireccion(nuevaDireccion);
+		return this.clienteRepository.save(cliente);
+	}
+
 }
