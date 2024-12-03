@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.daw.persistence.entities.Pizza;
+import com.daw.services.PizzaPedidoService;
 import com.daw.services.PizzaService;
 
 @RestController
@@ -29,6 +30,14 @@ public class PizzaController {
 	public PizzaController(PizzaService pizzaService) {
 		super();
 		this.pizzaService = pizzaService;
+	}
+	
+	@Autowired
+	private final PizzaPedidoService pizzaPedidoService;
+	
+	public PizzaController(PizzaPedidoService pizzaPedidoService) {
+		super();
+		this.pizzaPedidoService = pizzaPedidoService;
 	}
 
 	@GetMapping

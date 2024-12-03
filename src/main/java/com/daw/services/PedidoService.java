@@ -1,5 +1,6 @@
 package com.daw.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.daw.persistence.entities.Pedido;
 import com.daw.persistence.repositories.PedidoRepository;
+import com.daw.services.dto.PedidoDTO;
+import com.daw.services.mappers.PedidoMapper;
 
 @Service
 public class PedidoService {
@@ -18,8 +21,19 @@ public class PedidoService {
 		this.pedidoRepository = pedidoRepository;
 	}
 
-	public List<Pedido> getAll() {
-		return this.pedidoRepository.findAll();
+	//CRUDs
+	public List<PedidoDTO> getAll() {
+		List<PedidoDTO> pedidosDTO = new ArrayList<PedidoDTO>();
+		
+		for (Pedido p : this.pedidoRepository.findAll()) {
+			pedidosDTO.add(PedidoMapper.toDto(p));
+		}
+		
+		return pedidosDTO;
+	}
+	
+	public Optional<Pedido> getPedido(int idPedido) {
+		return this.pedidoRepository.findById(idPedido);
 	}
 
 	public Optional<Pedido> getPedido(int idPedido) {

@@ -12,16 +12,19 @@ public class PedidoMapper {
 	public static PedidoDTO toDto(Pedido pedido) {
 		PedidoDTO dto = new PedidoDTO();
 		
+		// recogemos los atributos de PedidoDTO de las distintas entidades
+		// vienen de pedido
 		dto.setId(pedido.getId());
 		dto.setFecha(pedido.getFecha());
 		dto.setTotal(pedido.getTotal());
 		dto.setMetodo(pedido.getMetodo());
 		dto.setNotas(pedido.getNotas());
+		// vienen de cliente asociado al pedido
 		dto.setCliente(pedido.getCliente().getNombre());
 		dto.setTelefono(pedido.getCliente().getTelefono());
 		dto.setDireccion(pedido.getCliente().getDireccion());
 		
-		// para que no sea nulo
+		// creo una lista pizzapedidodto
 		List<PizzaPedidoOutputDTO> pizzas = new ArrayList<PizzaPedidoOutputDTO>();
 		
 		for(PizzaPedido pp : pedido.getPizzaPedidos()) {

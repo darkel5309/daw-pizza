@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.daw.persistence.entities.Pedido;
 import com.daw.services.PedidoService;
+import com.daw.services.dto.PedidoDTO;
+import com.daw.services.dto.PizzaPedidoOutputDTO;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -31,8 +33,9 @@ public class PedidoController {
 		this.pedidoService = pedidoService;
 	}
 
+	// cruds de pedido
 	@GetMapping
-	public ResponseEntity<List<Pedido>> list() {
+	public ResponseEntity<List<PedidoDTO>> list() {
 		return ResponseEntity.ok(this.pedidoService.getAll());
 	}
 
@@ -69,6 +72,12 @@ public class PedidoController {
 			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();
+	}
+	
+	// cruds de pizzapedido
+	@GetMapping("/{idPedido}/pizzas")
+	public ResponseEntity<List<PizzaPedidoOutputDTO>> listPizzas(@PathVariable int idPedido){
+		return ResponseEntity.ok(this.pizzaPedidoService)
 	}
 
 }
