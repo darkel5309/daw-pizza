@@ -20,7 +20,9 @@ import com.daw.persistence.entities.Pedido;
 import com.daw.services.ClienteService;
 import com.daw.services.PedidoService;
 import com.daw.services.PizzaPedidoService;
+import com.daw.services.PizzaService;
 import com.daw.services.dto.PedidoDTO;
+import com.daw.services.dto.PizzaPedidoInputDTO;
 import com.daw.services.dto.PizzaPedidoOutputDTO;
 
 @RestController
@@ -32,10 +34,12 @@ public class PedidoController {
 
 	@Autowired
 	private PizzaPedidoService pizzaPedidoService;
-	
+
 	@Autowired
 	private ClienteService clienteService;
-
+	
+	@Autowired
+	private PizzaService pizzaService;
 
 	// cruds de pedido
 	@GetMapping
@@ -55,9 +59,9 @@ public class PedidoController {
 
 	@PostMapping
 	public ResponseEntity<PedidoDTO> create(@RequestBody Pedido pedido) {
-		if(this.clienteService.exists(pedido.getIdCliente())) {
+		if (this.clienteService.exists(pedido.getIdCliente())) {
 			return ResponseEntity.notFound().build();
-		
+
 		}
 		return new ResponseEntity<PedidoDTO>(this.pedidoService.create(pedido), HttpStatus.CREATED);
 	}
@@ -94,5 +98,20 @@ public class PedidoController {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(this.pizzaPedidoService.findDTO(idPizza));
+	}
+
+	// añadir una pizza al pedido
+	@PostMapping("/{idPedido}/pizzas")
+	public ResponseEntity<PizzaPedidoOutputDTO> addPizza(@PathVariable int idPedido,
+			@RequestBody PizzaPedidoInputDTO dto) {
+		// comprobamos si existe el pedido
+		if (!this.pedidoService.existsPedido(dto.getIdPizza())) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		if (!this.pedidoService.existsPizza(dto.getIdPizza())) {
+			return ResponseEntity.notFound().build();
+		}
+		return new ResponseEntity<PizzaPedidoOutputDTO>(this.pizzaPedidoService.addPizza(inputDTO),HttpStatus.CREATED);
 	}
 }
