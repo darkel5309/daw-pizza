@@ -67,4 +67,10 @@ public class PizzaPedidoService {
 		
 		return dtos;
 	}
+	
+	public PizzaPedidoOutputDTO findDTO(int idPizza) {
+		PizzaPedido pp = this.pizzaPedidoRepository.findById(idPizza).get();
+		
+		return PizzaPedidoMapper.toDTO(pp);
+	}
 }

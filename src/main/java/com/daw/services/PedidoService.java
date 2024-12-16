@@ -1,12 +1,15 @@
 package com.daw.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daw.persistence.entities.Pedido;
+import com.daw.persistence.entities.PizzaPedido;
 import com.daw.persistence.repositories.PedidoRepository;
 import com.daw.services.dto.PedidoDTO;
 import com.daw.services.mappers.PedidoMapper;
@@ -14,15 +17,14 @@ import com.daw.services.mappers.PedidoMapper;
 @Service
 public class PedidoService {
 
-	private final PedidoRepository pedidoRepository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
 
-	public PedidoService(PedidoRepository pedidoRepository) {
-		super();
-		this.pedidoRepository = pedidoRepository;
-	}
+	@Autowired
+	private ClienteService clienteService;
 
 	//CRUDs
-	public List<PedidoDTO> getAll() {
+	public List<PedidoDTO> findAll() {
 		List<PedidoDTO> pedidosDTO = new ArrayList<PedidoDTO>();
 		
 		for (Pedido p : this.pedidoRepository.findAll()) {
@@ -32,16 +34,20 @@ public class PedidoService {
 		return pedidosDTO;
 	}
 	
-	public Optional<Pedido> getPedido(int idPedido) {
+	public Optional<Pedido> findById(int idPedido) {
 		return this.pedidoRepository.findById(idPedido);
 	}
 
-	public Optional<Pedido> getPedido(int idPedido) {
-		return this.pedidoRepository.findById(idPedido);
-	}
-
-	public Pedido create(Pedido pedido) {
-		return this.pedidoRepository.save(pedido);
+	public PedidoDTO create(Pedido pedido) {
+		pedido.setFecha(LocalDateTime.now());
+		pedido.setTotal(0.0);
+		
+		pedido = this.pedidoRepository.save(pedido);
+		
+		pedido.setCliente(this.clienteService.getCliente(pedido.getIdCliente()).get());
+		pedido.setPizzaPedidos(new ArrayList<PizzaPedido>());
+		
+		return PedidoMapper.toDto(pedido);
 	}
 
 	public Pedido save(Pedido pedido) {
@@ -59,7 +65,7 @@ public class PedidoService {
 		return result;
 	}
 
-	public boolean exists(int idPedido) {
+	public boolean existsPedido(int idPedido) {
 		return this.pedidoRepository.existsById(idPedido);
 	}
 
