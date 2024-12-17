@@ -33,12 +33,12 @@ public class PizzaController {
 
 	@GetMapping
 	public ResponseEntity<List<Pizza>> list() {
-		return ResponseEntity.ok(this.pizzaService.getAll());
+		return ResponseEntity.ok(this.pizzaService.findAll());
 	}
 
 	@GetMapping("/{idPizza}")
-	public ResponseEntity<Pizza> findOne(@PathVariable int idPizza) {
-		Optional<Pizza> optPizza = this.pizzaService.getPizza(idPizza);
+	public ResponseEntity<Pizza> findById(@PathVariable int idPizza) {
+		Optional<Pizza> optPizza = this.pizzaService.findById(idPizza);
 
 		// el id existe en la base de datos 200ok y la pizza
 		if (optPizza.isPresent()) {
@@ -58,7 +58,7 @@ public class PizzaController {
 		if (idPizza != pizza.getId()) {
 			return ResponseEntity.badRequest().build();
 		}
-		if (!this.pizzaService.exists(idPizza)) {
+		if (!this.pizzaService.existsPizza(idPizza)) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(this.pizzaService.save(pizza));
@@ -95,8 +95,8 @@ public class PizzaController {
 	@PutMapping("/{idPizza}/precio")
 	// pathvariable para encontrar la entidad con el id y el requestparam lo que
 	// solicitamos
-	public ResponseEntity<Pizza> updatePrecio(@PathVariable int idPizza, @RequestParam Double nuevoPrecio) {
-		if (this.pizzaService.exists(idPizza)) {
+	public ResponseEntity<Pizza> actualizarPrecio(@PathVariable int idPizza, @RequestParam Double nuevoPrecio) {
+		if (this.pizzaService.existsPizza(idPizza)) {
 			return ResponseEntity.ok(this.pizzaService.actualizarPrecio(idPizza, nuevoPrecio));
 		}
 		return ResponseEntity.notFound().build();
@@ -104,7 +104,7 @@ public class PizzaController {
 
 	@PutMapping("/{idPizza}/disponible")
 	public ResponseEntity<Pizza> marcarDesmarcarDisponible(@PathVariable int idPizza) {
-		if (this.pizzaService.exists(idPizza)) {
+		if (this.pizzaService.existsPizza(idPizza)) {
 			return ResponseEntity.ok(this.pizzaService.marcarDesmarcarDisponible(idPizza));
 		}
 		return ResponseEntity.notFound().build();

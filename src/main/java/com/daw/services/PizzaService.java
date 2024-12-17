@@ -20,17 +20,19 @@ public class PizzaService {
 		this.pizzaRepository = pizzaCrudRepository;
 	}
 
-	public List<Pizza> getAll() {
+	public List<Pizza> findAll() {
 		return this.pizzaRepository.findAll();
 	}
 
-	public Optional<Pizza> getPizza(int idPizza) {
+	public Optional<Pizza> findById(int idPizza) {
 		return this.pizzaRepository.findById(idPizza);
 	}
 
-	public Pizza create(Pizza pizza) {
-		pizza.setDisponible(true);
+	public boolean existsPizza(int idPizza) {
+		return this.pizzaRepository.existsById(idPizza);
+	}
 
+	public Pizza create(Pizza pizza) {
 		return this.pizzaRepository.save(pizza);
 	}
 
@@ -41,16 +43,12 @@ public class PizzaService {
 	public boolean delete(int idPizza) {
 		boolean result = false;
 
-		if (this.pizzaRepository.findById(idPizza).isPresent()) {
+		if (this.pizzaRepository.existsById(idPizza)) {
 			this.pizzaRepository.deleteById(idPizza);
 
 			result = true;
 		}
 		return result;
-	}
-
-	public boolean exists(int idPizza) {
-		return this.pizzaRepository.existsById(idPizza);
 	}
 
 	public List<Pizza> getCarta() {

@@ -39,8 +39,16 @@ public class PedidoService {
 		return pedidosDTO;
 	}
 
-	public Optional<Pedido> findById(int idPedido) {
+	public PedidoDTO findById(int idPedido) {
+		return PedidoMapper.toDto(this.pedidoRepository.findById(idPedido).get());
+	}
+
+	public Optional<Pedido> findByIdEntity(int idPedido) {
 		return this.pedidoRepository.findById(idPedido);
+	}
+
+	public boolean existsPedido(int idPedido) {
+		return this.pedidoRepository.existsById(idPedido);
 	}
 
 	public PedidoDTO create(Pedido pedido) {
@@ -49,16 +57,13 @@ public class PedidoService {
 
 		pedido = this.pedidoRepository.save(pedido);
 
-		pedido.setCliente(this.clienteService.getCliente(pedido.getIdCliente()).get());
+		pedido.setCliente(this.clienteService.findById(pedido.getIdCliente()).get());
 		pedido.setPizzaPedidos(new ArrayList<PizzaPedido>());
 
 		return PedidoMapper.toDto(pedido);
 	}
 
-	public Pedido save(Pedido pedido) {
-		return this.pedidoRepository.save(pedido);
-	}
-
+	// Lo mismo prácticamente
 	public Pedido update(Pedido pedido) {
 		return this.pedidoRepository.save(pedido);
 	}
@@ -66,16 +71,11 @@ public class PedidoService {
 	public boolean delete(int idPedido) {
 		boolean result = false;
 
-		if (this.pedidoRepository.findById(idPedido).isPresent()) {
+		if (this.pedidoRepository.existsById(idPedido)) {
 			this.pedidoRepository.deleteById(idPedido);
-
 			result = true;
 		}
 		return result;
-	}
-
-	public boolean existsPedido(int idPedido) {
-		return this.pedidoRepository.existsById(idPedido);
 	}
 
 	public PizzaPedidoOutputDTO addModPizza(PizzaPedidoInputDTO inputDTO) {
@@ -98,17 +98,19 @@ public class PedidoService {
 
 		this.pedidoRepository.save(pedido);
 	}
-	
-	// eliminar una pizza
+
+	// DELETE PIZZA
+	// Método intermedio que llame al pizzaPedidoService y lo borre
+	// Actualizamos precio
+	// Devolvemos un true si se ha borrado
 	public boolean deletePizza(int idPizzaPedido) {
-		boolean result = this.pizzaPedidoService.deletePizza(idPizzaPedido);
-		
+		boolean result = this.pizzaPedidoService.delete(idPizzaPedido);
+
 		if (result) {
 			this.actualizarTotal(idPizzaPedido);
 		}
-		
+
 		return result;
 	}
-
 
 }

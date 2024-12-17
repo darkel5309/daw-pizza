@@ -3,6 +3,7 @@ package com.daw.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daw.persistence.entities.Cliente;
@@ -11,19 +12,20 @@ import com.daw.persistence.repositories.ClienteRepository;
 @Service
 public class ClienteService {
 
-	private final ClienteRepository clienteRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
 
-	public ClienteService(ClienteRepository clienteRepository) {
-		super();
-		this.clienteRepository = clienteRepository;
-	}
-
-	public List<Cliente> getAll() {
+	// CRUDs
+	public List<Cliente> findAll() {
 		return this.clienteRepository.findAll();
 	}
 
-	public Optional<Cliente> getCliente(int idCliente) {
+	public Optional<Cliente> findById(int idCliente) {
 		return this.clienteRepository.findById(idCliente);
+	}
+	
+	public boolean existsCliente(int idCliente) {
+		return this.clienteRepository.existsById(idCliente);
 	}
 
 	public Cliente create(Cliente cliente) {
@@ -37,16 +39,12 @@ public class ClienteService {
 	public boolean delete(int idCliente) {
 		boolean result = false;
 
-		if (this.clienteRepository.findById(idCliente).isPresent()) {
+		if (this.clienteRepository.existsById(idCliente)) {
 			this.clienteRepository.deleteById(idCliente);
 
 			result = true;
 		}
 		return result;
-	}
-
-	public boolean exists(int idCliente) {
-		return this.clienteRepository.existsById(idCliente);
 	}
 
 	public List<Cliente> getByTelefono(String telefono) {

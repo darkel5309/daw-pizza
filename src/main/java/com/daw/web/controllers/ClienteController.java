@@ -33,12 +33,12 @@ public class ClienteController {
 
 	@GetMapping
 	public ResponseEntity<List<Cliente>> list() {
-		return ResponseEntity.ok(this.clienteService.getAll());
+		return ResponseEntity.ok(this.clienteService.findAll());
 	}
 
 	@GetMapping("/{idCliente}")
-	public ResponseEntity<Cliente> findOne(@PathVariable int idCliente) {
-		Optional<Cliente> optCliente = this.clienteService.getCliente(idCliente);
+	public ResponseEntity<Cliente> findById(@PathVariable int idCliente) {
+		Optional<Cliente> optCliente = this.clienteService.findById(idCliente);
 
 		if (optCliente.isPresent()) {
 			return ResponseEntity.ok(optCliente.get());
@@ -56,7 +56,7 @@ public class ClienteController {
 		if (idCliente != cliente.getId()) {
 			return ResponseEntity.badRequest().build();
 		}
-		if (!this.clienteService.exists(idCliente)) {
+		if (!this.clienteService.existsCliente(idCliente)) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(this.clienteService.save(cliente));
@@ -77,7 +77,7 @@ public class ClienteController {
 
 	@PutMapping("/{idCliente}/direccion")
 	public ResponseEntity<Cliente> updateDireccion(@PathVariable int idCliente, @RequestParam String direccion) {
-		if (this.clienteService.exists(idCliente)) {
+		if (this.clienteService.existsCliente(idCliente)) {
 			return ResponseEntity.ok(this.clienteService.modificarDireccion(idCliente, direccion));
 		}
 		return ResponseEntity.notFound().build();

@@ -28,6 +28,7 @@ public class PizzaPedidoService {
 	@Autowired
 	private PizzaService pizzaService;
 
+	//CRUDs simples
 	public List<PizzaPedido> findAll() {
 		return this.pizzaPedidoRepository.findAll();
 	}
@@ -40,7 +41,7 @@ public class PizzaPedidoService {
 		return this.pizzaPedidoRepository.findById(idPizzaPedido);
 	}
 
-	// Actualizar el precio del pizzaPedido
+	// Crear el pizzaPedido
 	public PizzaPedido create(PizzaPedido pizzaPedido) {
 		return this.pizzaPedidoRepository.save(pizzaPedido);
 	}
@@ -51,18 +52,17 @@ public class PizzaPedidoService {
 	}
 
 	// eliminar una pizza
-	public boolean deletePizza(int idPizzaPedido) {
+	public boolean delete(int idPizzaPedido) {
 		boolean result = false;
 
-		if (this.pizzaPedidoRepository.existsPizzaPedido(idPizzaPedido)) {
-			this.pizzaPedidoRepository.delete(idPizzaPedido);
+		if (this.pizzaPedidoRepository.existsById(idPizzaPedido)) {
+			this.pizzaPedidoRepository.deleteById(idPizzaPedido);
 			result = true;
 		}
 		return result;
 	}
 
-	// crud de pizzapedidodtoPizzaPedidoDTO
-
+	//CRUDs de PizzaPedidoDTO
 	public List<PizzaPedidoOutputDTO> findByIdPedido(int idPedido) {
 		List<PizzaPedidoOutputDTO> dtos = new ArrayList<PizzaPedidoOutputDTO>();
 
@@ -79,17 +79,16 @@ public class PizzaPedidoService {
 		return PizzaPedidoMapper.toDTO(pp);
 	}
 
-	public PizzaPedidoOutputDTO create(PizzaPedidoInputDTO inputDTO) {
+	public PizzaPedidoOutputDTO save(PizzaPedidoInputDTO inputDTO) {
 		PizzaPedido entity = PizzaPedidoMapper.toEntity(inputDTO);
 
 		// nos traemos la pizza
-		Pizza pizza = this.pizzaService.getPizza(entity.getIdPizza()).get();
+		Pizza pizza = this.pizzaService.findById(entity.getIdPizza()).get();
 		entity.setPrecio(entity.getCantidad() * pizza.getPrecio());
 
 		entity = this.pizzaPedidoRepository.save(entity);
 
-		// añadimos la pizza que viene a nula cuando hacemos el save() para que no de
-		// null pointer en el mapper
+		//Añadimos la pizza que viene a nula cuando hacemos el save() para que no de NullPointer en el Mapper
 		entity.setPizza(pizza);
 
 		return PizzaPedidoMapper.toDTO(entity);
