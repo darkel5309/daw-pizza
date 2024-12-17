@@ -109,9 +109,9 @@ public class PedidoController {
 			return ResponseEntity.notFound().build();
 		}
 		
-		if (!this.pedidoService.existsPizza(dto.getIdPizza())) {
+		if (!this.pizzaService.exists(dto.getIdPizza())) {
 			return ResponseEntity.notFound().build();
 		}
-		return new ResponseEntity<PizzaPedidoOutputDTO>(this.pizzaPedidoService.addPizza(inputDTO),HttpStatus.CREATED);
+		return new ResponseEntity<PizzaPedidoOutputDTO>(this.pizzaPedidoService.create(dto),HttpStatus.CREATED);
 	}
 }
