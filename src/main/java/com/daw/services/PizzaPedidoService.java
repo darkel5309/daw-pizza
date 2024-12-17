@@ -24,7 +24,7 @@ public class PizzaPedidoService {
 		super();
 		this.pizzaPedidoRepository = pizzaPedidoRepository;
 	}
-	
+
 	@Autowired
 	private PizzaService pizzaService;
 
@@ -50,14 +50,14 @@ public class PizzaPedidoService {
 		return this.pizzaPedidoRepository.save(pizzaPedido);
 	}
 
-	public boolean delete(int idPizzaPedido) {
+	// eliminar una pizza
+	public boolean deletePizza(int idPizzaPedido) {
 		boolean result = false;
 
-		if (this.pizzaPedidoRepository.existsById(idPizzaPedido)) {
-			this.pizzaPedidoRepository.deleteById(idPizzaPedido);
+		if (this.pizzaPedidoRepository.existsPizzaPedido(idPizzaPedido)) {
+			this.pizzaPedidoRepository.delete(idPizzaPedido);
 			result = true;
 		}
-
 		return result;
 	}
 
@@ -81,16 +81,17 @@ public class PizzaPedidoService {
 
 	public PizzaPedidoOutputDTO create(PizzaPedidoInputDTO inputDTO) {
 		PizzaPedido entity = PizzaPedidoMapper.toEntity(inputDTO);
-		
-		//nos traemos la pizza
+
+		// nos traemos la pizza
 		Pizza pizza = this.pizzaService.getPizza(entity.getIdPizza()).get();
 		entity.setPrecio(entity.getCantidad() * pizza.getPrecio());
-		
+
 		entity = this.pizzaPedidoRepository.save(entity);
-		
-		// añadimos la pizza que viene a nula cuando hacemos el save() para que no de null pointer en el mapper
+
+		// añadimos la pizza que viene a nula cuando hacemos el save() para que no de
+		// null pointer en el mapper
 		entity.setPizza(pizza);
-		
+
 		return PizzaPedidoMapper.toDTO(entity);
 	}
 }

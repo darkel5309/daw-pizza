@@ -102,8 +102,7 @@ public class PedidoController {
 
 	// añadir una pizza al pedido
 	@PostMapping("/{idPedido}/pizzas")
-	public ResponseEntity<PizzaPedidoOutputDTO> addPizza(@PathVariable int idPedido,
-			@RequestBody PizzaPedidoInputDTO dto) {
+	public ResponseEntity<PizzaPedidoOutputDTO> addPizza(@PathVariable int idPedido, @RequestBody PizzaPedidoInputDTO dto) {
 		// comprobamos si existe el pedido
 		if (!this.pedidoService.existsPedido(dto.getIdPizza())) {
 			return ResponseEntity.notFound().build();
@@ -112,6 +111,41 @@ public class PedidoController {
 		if (!this.pizzaService.exists(dto.getIdPizza())) {
 			return ResponseEntity.notFound().build();
 		}
-		return new ResponseEntity<PizzaPedidoOutputDTO>(this.pizzaPedidoService.create(dto),HttpStatus.CREATED);
+		return new ResponseEntity<PizzaPedidoOutputDTO>(this.pedidoService.addModPizza(dto),HttpStatus.CREATED);
 	}
+	
+	// añadir una pizza al pedido
+		@PutMapping("/{idPedido}/pizzas/{idPizza}")
+		public ResponseEntity<PizzaPedidoOutputDTO> modPizza(@PathVariable int idPedido, @PathVariable int idPizzaPedido, @RequestBody PizzaPedidoInputDTO dto) {
+			// comprobamos si existe el pedido
+			if (!this.pedidoService.existsPedido(idPedido)) {
+				return ResponseEntity.notFound().build();
+			}
+			
+			if (!this.pizzaPedidoService.existsPizzaPedido(idPizzaPedido)) {
+				return ResponseEntity.notFound().build();
+			}
+			
+			if (!this.pizzaService.exists(dto.getIdPizza())) {
+				return ResponseEntity.notFound().build();
+			}
+			
+			if (idPizzaPedido != dto.getId()) {
+				return ResponseEntity.badRequest().build();
+			}
+			
+			if (idPedido != dto.getIdPedido()) {
+				return ResponseEntity.badRequest().build();
+			}
+			
+			return ResponseEntity.ok(this.pedidoService.addModPizza(dto));
+		}
+		
+		// borrar 
+public ResponseEntity<PizzaPedidoOutputDTO> deletePizza(@PathVariable int idPedido, @PathVariable int idPizzaPedido)
+	
+	
+	
+	
+	
 }
