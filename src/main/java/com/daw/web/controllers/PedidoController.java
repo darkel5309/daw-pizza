@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.daw.persistence.entities.Pedido;
@@ -149,6 +150,11 @@ public class PedidoController {
 		}
 
 		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/metodo")
+	public ResponseEntity<List<Pedido>> metodo(@RequestParam("metodo") String metodo){
+		return ResponseEntity.ok(this.pedidoService.getByMetodoContaining(metodo));
 	}
 
 }

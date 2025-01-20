@@ -112,5 +112,9 @@ public class PedidoService {
 
 		return result;
 	}
+	
+	public List<Pedido> getByMetodoContaining(String metodo){
+		return this.pedidoRepository.findByMetodoContaining(metodo);
+	}
 
 }

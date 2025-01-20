@@ -596,30 +596,6 @@
 					"response": []
 				},
 				{
-					"name": "borrar un pedido",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/dawpizza/api/pedidos/1",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"dawpizza",
-								"api",
-								"pedidos",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "modificar pedido",
 					"request": {
 						"auth": {
@@ -647,6 +623,30 @@
 								"api",
 								"pedidos",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "borrar un pedido",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/dawpizza/api/pedidos/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dawpizza",
+								"api",
+								"pedidos",
+								"1"
 							]
 						}
 					},
@@ -794,6 +794,80 @@
 								"pizzas",
 								"2"
 							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener los pedidos para llevar",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/dawpizza/api/pedidos/metodo?metodo=R",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dawpizza",
+								"api",
+								"pedidos",
+								"metodo"
+							],
+							"query": [
+								{
+									"key": "metodo",
+									"value": "R"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener los pedidos consumidos en el local",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/dawpizza/api/pedidos/metodo?metodo=L",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dawpizza",
+								"api",
+								"pedidos",
+								"metodo"
+							],
+							"query": [
+								{
+									"key": "metodo",
+									"value": "L"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener los pedidos de hoy",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
 						}
 					},
 					"response": []
