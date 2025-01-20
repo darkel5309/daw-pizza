@@ -867,7 +867,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "localhost:8080/dawpizza/api/pedidos/hoy",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dawpizza",
+								"api",
+								"pedidos",
+								"hoy"
+							]
 						}
 					},
 					"response": []

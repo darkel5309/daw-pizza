@@ -1,5 +1,6 @@
 package com.daw.services;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -112,9 +113,15 @@ public class PedidoService {
 
 		return result;
 	}
-	
-	public List<Pedido> getByMetodoContaining(String metodo){
+
+	public List<Pedido> getByMetodoContaining(String metodo) {
 		return this.pedidoRepository.findByMetodoContaining(metodo);
+	}
+
+	public List<Pedido> getPedidosHoy() {
+		LocalDateTime inicioDelDia = LocalDate.now().atStartOfDay();
+		LocalDateTime finDelDia = LocalDate.now().atTime(23, 59, 59, 999999999);
+		return this.pedidoRepository.findByFechaBetween(inicioDelDia, finDelDia);
 	}
 
 }

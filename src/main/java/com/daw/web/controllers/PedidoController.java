@@ -156,5 +156,10 @@ public class PedidoController {
 	public ResponseEntity<List<Pedido>> metodo(@RequestParam("metodo") String metodo){
 		return ResponseEntity.ok(this.pedidoService.getByMetodoContaining(metodo));
 	}
+	
+	@GetMapping("/hoy")
+	public ResponseEntity<List<Pedido>> pedidosHoy(){
+		return ResponseEntity.ok(this.pedidoService.getPedidosHoy());
+	}
 
 }
