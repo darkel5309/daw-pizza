@@ -620,7 +620,7 @@
 					"response": []
 				},
 				{
-					"name": "modificar pedido CON ERROR",
+					"name": "modificar pedido",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -629,7 +629,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idCliente\": 1,\r\n    \"metodo\": \"R\",\r\n    \"notas\": \"Tiene mucha hambre\"\r\n}",
+							"raw": "    {\r\n        \"id\": 3,\r\n        \"idCliente\": 1,\r\n        \"fecha\": \"2025-01-20T09:37:38\",\r\n        \"total\": 0.0,\r\n        \"metodo\": \"R\",\r\n        \"notas\": \"Tiene mucha hambre\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -637,7 +637,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/dawpizza/api/pedidos/update/3",
+							"raw": "localhost:8080/dawpizza/api/pedidos/3",
 							"host": [
 								"localhost"
 							],
@@ -646,7 +646,6 @@
 								"dawpizza",
 								"api",
 								"pedidos",
-								"update",
 								"3"
 							]
 						}
