@@ -248,31 +248,6 @@
 					"response": []
 				},
 				{
-					"name": "marcar pizza como disponible/no disponible",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/dawpizza/api/pizzas/1/disponible",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"dawpizza",
-								"api",
-								"pizzas",
-								"1",
-								"disponible"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "actualizar precio pizza",
 					"request": {
 						"auth": {
@@ -298,6 +273,31 @@
 									"key": "precio",
 									"value": "4.60"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "marcar pizza como disponible/no disponible",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/dawpizza/api/pizzas/1/disponible",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dawpizza",
+								"api",
+								"pizzas",
+								"1",
+								"disponible"
 							]
 						}
 					},
@@ -564,7 +564,7 @@
 					"response": []
 				},
 				{
-					"name": "crear un pedido ERROR",
+					"name": "crear un pedido",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -573,7 +573,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"metodo\": \"T\",\r\n    \"cliente\": \"Angel Dominguez\",\r\n    \"telefono\": \"666666666\",\r\n    \"direccion\": \"Calle Sevilla\",\r\n    \"notas\": \"Entrega a las 9\",\r\n    \"pizzas\": [\r\n        {\r\n            \"cantidad\": 3.0,\r\n            \"precio\": 10.0,\r\n            \"idPizza\": 2,\r\n            \"pizza\": \"Pepperoni\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"idCliente\": 1,\r\n    \"metodo\": \"L\",\r\n    \"notas\": \"Tiene mucha hambre\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -629,7 +629,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "            {\r\n                \"id\": 1,\r\n                \"cantidad\": 3.0,\r\n                \"precio\": 8.5,\r\n                \"idPizza\": 1,\r\n                \"pizza\": \"Margarita\"\r\n            }",
+							"raw": "{\r\n    \"idCliente\": 1,\r\n    \"metodo\": \"R\",\r\n    \"notas\": \"Tiene mucha hambre\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -637,7 +637,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/dawpizza/api/pedidos/1/pizzas/1",
+							"raw": "localhost:8080/dawpizza/api/pedidos/update/3",
 							"host": [
 								"localhost"
 							],
@@ -646,9 +646,8 @@
 								"dawpizza",
 								"api",
 								"pedidos",
-								"1",
-								"pizzas",
-								"1"
+								"update",
+								"3"
 							]
 						}
 					},
@@ -713,8 +712,17 @@
 						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"idPizza\": 1,\r\n    \"cantidad\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "localhost:8080/dawpizza/api/pedidos/1/pizzas/5",
+							"raw": "localhost:8080/dawpizza/api/pedidos/3/pizzas",
 							"host": [
 								"localhost"
 							],
@@ -723,9 +731,8 @@
 								"dawpizza",
 								"api",
 								"pedidos",
-								"1",
-								"pizzas",
-								"5"
+								"3",
+								"pizzas"
 							]
 						}
 					},
