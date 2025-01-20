@@ -704,7 +704,7 @@
 					"response": []
 				},
 				{
-					"name": "añadir una pizza al pedido ERROR",
+					"name": "añadir una pizza al pedido",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -713,7 +713,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{   \r\n    \"idPizza\": 1,\r\n    \"cantidad\": 3\r\n}",
+							"raw": "{   \r\n    \"id\": 2,\r\n    \"idPedido\": 3,\r\n    \"idPizza\": 1,\r\n    \"cantidad\": 2.5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
