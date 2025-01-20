@@ -256,7 +256,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/dawpizza/api/pizzas/1/precio?precio=4.60",
+							"raw": "localhost:8080/dawpizza/api/pizzas/1/precio?nuevoPrecio=14",
 							"host": [
 								"localhost"
 							],
@@ -270,8 +270,8 @@
 							],
 							"query": [
 								{
-									"key": "precio",
-									"value": "4.60"
+									"key": "nuevoPrecio",
+									"value": "14"
 								}
 							]
 						}
