@@ -883,7 +883,7 @@
 					"response": []
 				},
 				{
-					"name": "obtener los pedidos de un cliente ERROR",
+					"name": "obtener los pedidos de un cliente",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -891,7 +891,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/dawpizza/api/pedidos/cliente/1",
+							"raw": "localhost:8080/dawpizza/api/pedidos/pedidosCliente/1",
 							"host": [
 								"localhost"
 							],
@@ -900,7 +900,7 @@
 								"dawpizza",
 								"api",
 								"pedidos",
-								"cliente",
+								"pedidosCliente",
 								"1"
 							]
 						}

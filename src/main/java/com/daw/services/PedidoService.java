@@ -123,5 +123,9 @@ public class PedidoService {
 		LocalDateTime finDelDia = LocalDate.now().atTime(23, 59, 59, 999999999);
 		return this.pedidoRepository.findByFechaBetween(inicioDelDia, finDelDia);
 	}
+	
+	public List<Pedido> findPedidosByCliente(int idCliente) {
+		return this.pedidoRepository.findByIdCliente(idCliente);
+	}
 
 }

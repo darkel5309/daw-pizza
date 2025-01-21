@@ -161,5 +161,10 @@ public class PedidoController {
 	public ResponseEntity<List<Pedido>> pedidosHoy(){
 		return ResponseEntity.ok(this.pedidoService.getPedidosHoy());
 	}
+	
+	@GetMapping("/pedidosCliente/{idCliente}")
+	public ResponseEntity<List<Pedido>> pedidosCliente(@PathVariable int idCliente){
+		return ResponseEntity.ok(this.pedidoService.findPedidosByCliente(idCliente));
+	}
 
 }
